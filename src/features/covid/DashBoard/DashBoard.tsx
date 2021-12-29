@@ -13,6 +13,7 @@ import {
   fetchAsyncGetCountries,
   fetchAsyncGetDaily,
   selectCountries,
+  selectDaily,
 } from '../covidSlice'
 import SwitchCountry from '../SwitchCountry/SwitchCountry'
 
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const DashBoard: React.FC = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
+  const daily = useSelector(selectDaily)
   const countries = useSelector(selectCountries).map(({ Country }) => Country)
 
   useEffect(() => {
@@ -42,9 +44,11 @@ const DashBoard: React.FC = () => {
           <Typography variant="h6" className={classes.title}>
             Covid 19 Live Dashboard
           </Typography>
-          <Typography variant="body1">
-            {new Date(Date.now()).toDateString()}
-          </Typography>
+          {daily[0] && (
+            <Typography variant="body1">
+              {new Date(daily[daily.length - 1].Date).toDateString()}
+            </Typography>
+          )}
         </Toolbar>
       </AppBar>
       <Container className={classes.content}>
