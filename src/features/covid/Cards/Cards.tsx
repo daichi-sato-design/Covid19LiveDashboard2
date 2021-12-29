@@ -12,59 +12,75 @@ import { selectDaily } from '../covidSlice'
 
 const Cards: React.FC = () => {
   const daily = useSelector(selectDaily)
+  if (!daily[0]) return null
+
   return (
-    <div className={styles.container}>
-      <Grid container spacing={1} justifyContent="center">
-        <Grid item xs={12} md={3} component={Card} className={styles.infected}>
-          <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              <MdLocalHospital />
-              感染者数
-            </Typography>
-            <Typography variant="h5">
-              <CountUp
-                start={0}
-                end={daily[daily.length - 1].Confirmed}
-                duration={1.5}
-                separator=","
-              />
-            </Typography>
-          </CardContent>
+    <>
+      <div className={styles.container}>
+        <Grid container spacing={1} justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            md={3}
+            component={Card}
+            className={styles.infected}
+          >
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                <MdLocalHospital />
+                感染者数
+              </Typography>
+              <Typography variant="h5">
+                <CountUp
+                  start={0}
+                  end={daily[daily.length - 1].Confirmed}
+                  duration={1.5}
+                  separator=","
+                />
+              </Typography>
+            </CardContent>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            component={Card}
+            className={styles.recovered}
+          >
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                <AiFillLike />
+                回復者数
+              </Typography>
+              <Typography variant="h5">
+                <CountUp
+                  start={0}
+                  end={daily[daily.length - 1].Recovered}
+                  duration={1.5}
+                  separator=","
+                />
+              </Typography>
+            </CardContent>
+          </Grid>
+          <Grid item xs={12} md={3} component={Card} className={styles.deaths}>
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                <GiHastyGrave />
+                死者数
+              </Typography>
+              <Typography variant="h5">
+                <CountUp
+                  start={0}
+                  end={daily[daily.length - 1].Deaths}
+                  duration={1.5}
+                  separator=","
+                />
+              </Typography>
+            </CardContent>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={3} component={Card} className={styles.recovered}>
-          <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              <AiFillLike />
-              回復者数
-            </Typography>
-            <Typography variant="h5">
-              <CountUp
-                start={0}
-                end={daily[daily.length - 1].Recovered}
-                duration={1.5}
-                separator=","
-              />
-            </Typography>
-          </CardContent>
-        </Grid>
-        <Grid item xs={12} md={3} component={Card} className={styles.deaths}>
-          <CardContent>
-            <Typography color="textSecondary" gutterBottom>
-              <GiHastyGrave />
-              死者数
-            </Typography>
-            <Typography variant="h5">
-              <CountUp
-                start={0}
-                end={daily[daily.length - 1].Deaths}
-                duration={1.5}
-                separator=","
-              />
-            </Typography>
-          </CardContent>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   )
 }
 
